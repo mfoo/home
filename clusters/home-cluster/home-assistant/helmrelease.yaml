@@ -1,0 +1,28 @@
+---
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: home-assistant
+  namespace: home-assistant
+spec:
+  chart:
+    repository: https://k8s-at-home.com/charts/
+    name: home-assistant
+    version: 7.2.1
+
+  values:
+    ingress:
+      enabled: true
+    persistence:
+      config:
+        enabled: true
+    postgresql:
+      enabled: true
+      persistance:
+        enabled: true
+        image:
+          repository: postgres
+          tag: 13.2
+    prometheus:
+      serviceMonitor:
+        enabled: true
