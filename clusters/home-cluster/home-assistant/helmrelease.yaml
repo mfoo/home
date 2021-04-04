@@ -25,9 +25,9 @@ spec:
       enabled: true
       persistence:
         enabled: true
-        image:
-          repository: postgres
-          tag: 13.2
+      image:
+        repository: postgres
+        tag: 13.2
     prometheus:
       serviceMonitor:
         enabled: true
