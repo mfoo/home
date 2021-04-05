@@ -34,6 +34,7 @@ spec:
       enabled: true
       persistence:
         enabled: true
+        storageClass: nfs-client
       image:
         repository: postgres
         tag: 13.2
