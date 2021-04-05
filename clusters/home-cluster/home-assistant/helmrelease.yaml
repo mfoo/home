@@ -29,6 +29,7 @@ spec:
     additionalVolumeMounts:
       - name: config-volume
         mountPath: /config/configuration.yaml
+        subPath: configuration.yaml
     postgresql:
       enabled: true
       persistence:
