@@ -18,6 +18,8 @@ spec:
   values:
     ingress:
       enabled: true
+      hosts:
+        - host: home-assistant.home
     persistence:
       config:
         enabled: true
