@@ -24,7 +24,8 @@ spec:
         - path: "/"
     additionalVolumes:
       - name: config-volume
-        configMap: home-assistant-config
+        configMap:
+          name: home-assistant-config
     additionalVolumeMounts:
       - name: config-volume
         mountPath: /config/configuration.yaml
