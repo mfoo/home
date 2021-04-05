@@ -3,6 +3,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: home-assistant-config
+  namespace: home-assistant
 data:
   configuration.yaml: |
     # Configure a default setup of Home Assistant (frontend, api, etc)
