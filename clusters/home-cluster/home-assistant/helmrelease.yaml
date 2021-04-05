@@ -20,6 +20,8 @@ spec:
       enabled: true
       hosts:
         - host: home-assistant.home
+          paths:
+            path: "/"
     persistence:
       config:
         enabled: true
