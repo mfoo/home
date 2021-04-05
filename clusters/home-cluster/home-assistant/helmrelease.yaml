@@ -22,9 +22,12 @@ spec:
       - host: home-assistant.home
         paths:
         - path: "/"
-    persistence:
-      config:
-        enabled: true
+    additionalVolumes:
+      - name: config-volume
+        configMap: home-assistant-config
+    additionalVolumeMounts:
+      - name: config-volume
+        mountPath: /config/configuration.yaml
     postgresql:
       enabled: true
       persistence:
