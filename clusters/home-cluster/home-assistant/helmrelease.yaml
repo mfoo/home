@@ -30,6 +30,11 @@ spec:
       - name: config-volume
         mountPath: /config/configuration.yaml
         subPath: configuration.yaml
+    persistence:
+      config:
+        # HA stores auth data in .storage/auth in the config folder
+        enabled: true
+        storageClass: nfs-client
     postgresql:
       enabled: true
       persistence:
