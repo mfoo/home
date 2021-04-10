@@ -15,17 +15,17 @@ spec:
         name: prometheus-community
         namespace: flux-system
       interval: 60m
-values:
-  prometheus:
-    server:
-      persistentVolume:
-        enabled: true
-    prometheusSpec:
-      storageSpec:
-        volumeClaimTemplate:
-          spec:
-            storageClassName: nfs-client
-            accessModes: ["ReadWriteOnce"]
-            resources:
-              requests:
-                storage: 20Gi
+  values:
+    prometheus:
+      server:
+        persistentVolume:
+          enabled: true
+      prometheusSpec:
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: nfs-client
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 20Gi
