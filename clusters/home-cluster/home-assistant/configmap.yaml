@@ -38,27 +38,27 @@ data:
     sensor:
     - platform: mqtt
       name: banana_plant_moisture
-      state_topic: banana_plant_topic
+      state_topic: homeassistant/sensor/test2/state
       value_template: "{{ value_json.moisture | int }}"
       unit_of_measurement: "%"
     - platform: mqtt
       name: banana_plant_battery
-      state_topic: banana_plant_topic
+      state_topic: homeassistant/sensor/test2/state
       value_template: "{{ value_json.battery | int }}"
       unit_of_measurement: "%"
     - platform: mqtt
       name: banana_plant_temperature
-      state_topic: banana_plant_topic
+      state_topic: homeassistant/sensor/test2/state
       value_template: "{{ value_json.temperature | float }}"
       unit_of_measurement: "°C"
     - platform: mqtt
       name: banana_plant_conductivity
-      state_topic: banana_plant_topic
+      state_topic: homeassistant/sensor/test2/state
       value_template: "{{ value_json.conductivity | int }}"
       unit_of_measurement: "µS/cm"
     - platform: mqtt
       name: banana_plant_brightness
-      state_topic: banana_plant_topic
-      value_template: "{{ value_json.brightness | int }}"
+      state_topic: homeassistant/sensor/test2/state
+      value_template: "{{ value_json.light | int }}"
       unit_of_measurement: "Lux"
    
