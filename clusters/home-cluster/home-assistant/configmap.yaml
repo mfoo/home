@@ -61,4 +61,8 @@ data:
       state_topic: homeassistant/sensor/test2/state
       value_template: "{{ value_json.light | int }}"
       unit_of_measurement: "Lux"
+
+    tplink:
+      switch:
+      - host: 192.168.1.235
    
