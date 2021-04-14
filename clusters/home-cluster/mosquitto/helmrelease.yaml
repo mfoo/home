@@ -13,7 +13,7 @@ spec:
         kind: HelmRepository
         name: k8s-at-home
         namespace: flux-system
-      interval: 1m
+      interval: 60m
   values:
     persistence:
       data:
@@ -21,3 +21,7 @@ spec:
         enabled: true
         storageClass: nfs-client
         size: "1Gi"
+    service:
+      # This needs to be accessible from outside the cluster so IoT components
+      # can speak to it.
+      type: NodePort
