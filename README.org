@@ -5,7 +5,7 @@
 
 My partner and I live in a flat in London with a bedroom, an office, two bathrooms, and a combined living room and kitchen space. We spend a large chunk of time at home and want our house to be as convenient and cosy as possible. Part of my contribution to this goal is to approach it from a technological angle and this repository captures how I go about that. It serves both as my documentation and as a configuration store - most software used in our house runs on a small Kubernetes cluster of [[https://www.raspberrypi.org/products/raspberry-pi-4-model-b/][Raspberry Pi 4b]]s running [[https://k3s.io/][k3s]] and [[https://fluxcd.io/][flux]], and this repository is also my flux repository.
 
-The main components of the network are:
+The main components are:
 - [[https://store.ui.com/collections/unifi-network-routing-switching/products/unifi-dream-machine][UniFi Dream Machine]] as my main switch and wireless access point
 - [[https://www.ui.com/unifi-switching/unifi-switch-8-150w/][UniFi Switch 8 150W]] as a secondary switch providing PoE and additional ports
 - [[https://openwrt.org/start][OpenWrt]] as my router and VPN client (frustratingly the UDM has no built-in OpenVPN/wireguard VPN client)
@@ -45,7 +45,7 @@ All other software runs on K3s on the Pis, which are running Ubuntu Server 20.04
 * Pi-hole configuration
   The Pi-hole uses multiple restriction lists and serves a few LAN DNS entries. It resolves non-blacklisted addresses using a local [[https://www.nlnetlabs.nl/projects/unbound/about/][Unbound]] installation. It is currently running on an 8gb Pi 4B which is much larger than it needs, so I intend to move this into the K3s cluster. I also intend to store its configuration in this repo as I currently have no backup of it.
 
-  This setup lets me have a local DNS cache for fast responses, improves DNS security, and doesn't let Google/OpenDNS/Cloudflare/Quad9 see my DNS queries.
+  This setup lets me have a local DNS cache for fast responses, improves DNS security, and doesn't let Google/OpenDNS/Cloudflare/Quad9 see our DNS queries.
 
   TODO: Discuss DNSSEC and the benefits of unbound.
   TODO: Move to K3s
