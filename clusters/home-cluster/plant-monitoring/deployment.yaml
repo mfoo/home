@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: plant-monitor
+spec:
+  selector:
+    matchLabels:
+      app: plant-monitor
+  template:
+    metadata:
+      name: plant-monitor
+      labels:
+        app: plant-monitor
+    spec:
+      containers:
+      - name: miflora2mqtt
+        image: raymondmm/miflora2mqtt:latest
+        volumeMounts:
+        - name: config-volume
+          mountPath: /config
+        securityContext:
+          privileged: true
+      # Host networking is necessary in order to access the bluetooth stack on
+      # the server running the pod.
+      hostNetwork: true
+      volumes:
+      - name: config-volume
+        configMap:
+          name: plant-monitoring-config
