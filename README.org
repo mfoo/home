@@ -1,0 +1,91 @@
+#+TITLE: Martin's Home Automation Project
+#+AUTHOR: Martin Foot
+#+STARTUP: showall
+#+OPTIONS: ^:nil
+
+My partner and I live in a flat in London with a bedroom, an office, two bathrooms, and a combined living room and kitchen space. We spend a large chunk of time at home and want our house to be as convenient and cosy as possible. Part of my contribution to this goal is to approach it from a technological angle and this repository captures how I go about that. It serves both as my documentation and as a configuration store - most software used in our house runs on a small Kubernetes cluster of [[https://www.raspberrypi.org/products/raspberry-pi-4-model-b/][Raspberry Pi 4b]]s running [[https://k3s.io/][k3s]] and [[https://fluxcd.io/][flux]], and this repository is also my flux repository.
+
+The main components of the network are:
+- [[https://store.ui.com/collections/unifi-network-routing-switching/products/unifi-dream-machine][UniFi Dream Machine]] as my main switch and wireless access point
+- [[https://www.ui.com/unifi-switching/unifi-switch-8-150w/][UniFi Switch 8 150W]] as a secondary switch providing PoE and additional ports
+- [[https://openwrt.org/start][OpenWrt]] as my router and VPN client (frustratingly the UDM has no built-in OpenVPN/wireguard VPN client)
+- [[https://global.download.synology.com/download/Document/Hardware/DataSheet/DiskStation/16-year/DS216j/enu/Synology_DS216j_Data_Sheet_enu.pdf][Synology DS216j NAS]], acting as a data store for backups and an NFS volume provider for my Kubernetes cluster via the [[https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner][nfs-subdir-external-provisioner]]. This is a little old but does its job well and doesn't need replacing. It regularly backs up to [[https://aws.amazon.com/glacier/][Amazon S3 Glacier]]
+- [[https://pi-hole.net/][Pi-hole]] as a local DNS server and DNS-based ad blocker advertised over DHCP
+- [[https://www.home-assistant.io/][Home Assistant]] as the controller for all 'smart home' style automations. This project is /fantastic/, and is connected to;
+  - [[https://www.philips-hue.com/en-gb][Philips Hue]] smart lights, switches, and motion sensors
+  - [[https://sonoff.tech/product/smart-home-security/zbbridge/][SONOFF ZBBridge]] flashed with [[https://tasmota.github.io/docs/][Tasmota firmware]], acting as a bridge for Zigbee-based devices and connected via WiFi to Home Assistant
+  - [[https://sonoff.tech/product/smart-home-security/snzb-02/][SONOFF SNZB-02]] wireless temperature and humidity sensors
+  - [[https://sonoff.tech/product/smart-home-security/snzb-04/][SONOFF SNZB-04]] wireless door/window sensors
+  - [[https://mosquitto.org/][Eclipse Mosquitto]] MQTT broker, connected to Home Assistant, that devices speaking MQTT can send messages to
+  - Xiaomi Mi Flora plant sensors, providing humidity, temperature, light, and conductivity readings over Bluetooth using the Pi's BLE stack
+  - [[https://github.com/ThomDietrich/miflora-mqtt-daemon][Mi Flora MQTT Daemon]], a daemon that polls all configured Mi Flora sensors and pushes the results to Mosquitto
+  - [[https://www.tp-link.com/uk/home-networking/smart-plug/kp115/][TP-Link Kasa KP115]] smart WiFi plugs to provide both control and energy monitoring of our appliances such as humidifiers
+  - Security cameras
+
+We do not have a UPS or redundant internet connection like some of the more fully featured setups in [[https://www.reddit.com/r/homelab/][r/homelab]]. We also do not have a television or any audio equipment outside of personal headphones / earphones. Our flat has underfloor heating but does not currently have a smart thermostat - something to investigate later.
+
+OpenWRT runs on a dedicated Raspberry Pi 4b that is connected to the WAN port from my ISP via [[https://www.anker.com/products/variant/usbc-to-ethernet-adapter/A83410A1][USB-C Ethernet adapter]] and to the WAN port of my UDM through its onboard Ethernet socket.
+
+The Pi-hole also currently runs on a dedicated Raspberry Pi 4b, but this is overkill and at some point I will attempt to move it into my K3s cluster, ideally also providing some redundancy.
+
+All other software runs on K3s on the Pis, which are running Ubuntu Server 20.04.2 LTS 64-bit.
+
+* Network Diagram
+  I do not use IPv6 on my home network and all devices currently are on the same VLAN. Fixing this second part is definitely on the TODO list.
+
+  TODO: Network diagram
+
+  | IP Range                    | Description          | Devices                                     |
+  |-----------------------------+----------------------+---------------------------------------------|
+  | 192.168.1.1 - 192.168.1.16  | Networking equipment | UDM (.1), Pi-hole (.2), OpenWRT router (.3) |
+  | 192.168.1.17 - 192.168.1.32 |                      | Pi-hole                                     |
+  | 192.168.1.3                 |                      |                                             |
+
+  We sometimes host board game evenings or have friends round for meals so I have a separate authenticated WiFi network for visitors which is usually disabled unless we expect guests and has no DNS filtering or restrictions of any kind.
+* Pi-hole configuration
+  The Pi-hole uses multiple restriction lists and serves a few LAN DNS entries. It resolves non-blacklisted addresses using a local [[https://www.nlnetlabs.nl/projects/unbound/about/][Unbound]] installation. It is currently running on an 8gb Pi 4B which is much larger than it needs, so I intend to move this into the K3s cluster. I also intend to store its configuration in this repo as I currently have no backup of it.
+
+  This setup lets me have a local DNS cache for fast responses, improves DNS security, and doesn't let Google/OpenDNS/Cloudflare/Quad9 see my DNS queries.
+
+  TODO: Discuss DNSSEC and the benefits of unbound.
+  TODO: Move to K3s
+  TODO: Look into implementing a Pi-hole module for [[https://github.com/kubernetes-sigs/external-dns/][external-dns]], letting me add custom Pi-hole DNS entries via Kubernetes =Service= objects.
+* Notes :noexport:
+  TODO: Add notes in case I need to rebuild this from scratch and to help other people:
+  - Setting up OpenWRT on the Pi
+  - Configuring Pi-hole and Unbound. I used [[https://openwrt.org/toh/raspberry_pi_foundation/raspberry_pi][these docs]]
+  - Installing K3s via [[https://github.com/alexellis/k3sup][k3sup]]
+  - My Kubernetes cluster
+	- Switch setup and IP allocation
+	- Power supplies
+	- Cooling
+  - Ansible configuration for managing the Raspberry Pis
+
+** Notes on Kubernetes installation
+   SSH in, change password.
+
+   #+begin_src sh
+   ssh-copy-id ubuntu@192.168.1.3
+   export IP=192.168.1.3
+   k3sup install --ip $IP --user ubuntu
+   #+end_src
+
+   K3s instructions for joining.
+
+   Remember to set cgroups:
+
+   #+begin_src sh
+cgroup_memory=1 cgroup_enable=memory
+   #+end_src
+
+   in =/boot/firmware/cmdline.txt=
+** Bluetooth
+   =pi-bluetooth= package
+https://raspberrypi.stackexchange.com/questions/114586/rpi-4b-bluetooth-unavailable-on-ubuntu-20-04
+
+** Upgrades
+   https://rancher.com/docs/k3s/latest/en/upgrades/automated/
+
+   #+begin_src sh
+   kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/download/v0.6.2/system-upgrade-controller.yaml
+   #+end_src
