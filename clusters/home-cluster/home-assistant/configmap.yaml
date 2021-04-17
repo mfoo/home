@@ -21,6 +21,9 @@ data:
     recorder:
       db_url: postgresql://home-assistant:home-assistant-pass@home-assistant-postgresql/home-assistant
 
+    mqtt:
+      broker: mosquitto.mosquitto.svc.cluster.local
+
     plant:
       banana_plant:
         sensors:
@@ -65,4 +68,3 @@ data:
     tplink:
       switch:
       - host: 192.168.1.235
-   
