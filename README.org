@@ -33,15 +33,19 @@ All other software runs on K3s on the Pis, which are running Ubuntu Server 20.04
 * Network Diagram
   I do not use IPv6 on my home network and all devices currently are on the same VLAN. Fixing this second part is definitely on the TODO list.
 
-  TODO: Network diagram
+  | Range            | Max devices | Description                                 |
+  |------------------+-------------+---------------------------------------------|
+  | 192.168.1.0/28   |          16 | Networking hardware (Router, switches, APs) |
+  | 192.168.1.16/28  |          16 | Infrastructure (DNS, storage, printer)      |
+  | 192.168.1.32/28  |          16 | Kubernetes cluster                          |
+  | 192.168.1.128/25 |         128 | Gen pop (DHCP range)                        |
+  | 192.168.2.0/24   |         254 | Office network                              |
+  | 192.168.3.0/24   |         254 | IoT network                                 |
+  | 192.168.4.0/24   |         254 | Guest network, all devices isolated         |
 
-  | IP Range                    | Description          | Devices                                     |
-  |-----------------------------+----------------------+---------------------------------------------|
-  | 192.168.1.1 - 192.168.1.16  | Networking equipment | UDM (.1), Pi-hole (.2), OpenWRT router (.3) |
-  | 192.168.1.17 - 192.168.1.32 |                      | Pi-hole                                     |
-  | 192.168.1.3                 |                      |                                             |
+  We sometimes have friends round so I have a separate authenticated WiFi network for visitors using the guest range which is usually disabled unless we expect guests. It has no restrictions except using the Pi-hole as a DNS server. All devices on that network are isolated and can only talk to the default gateway and DNS server.
 
-  We sometimes host board game evenings or have friends round for meals so I have a separate authenticated WiFi network for visitors which is usually disabled unless we expect guests and has no DNS filtering or restrictions of any kind.
+  My work devices are segregated from my home devices and Kubernetes cluster. Partly to stop distractions and partly because it's easier to set up a site-to-site VPN that only work devices use if I need to.
 * Pi-hole configuration
   The Pi-hole uses multiple restriction lists and serves a few LAN DNS entries. It resolves non-blacklisted addresses using a local [[https://www.nlnetlabs.nl/projects/unbound/about/][Unbound]] installation. It is currently running on an 8gb Pi 4B which is much larger than it needs, so I intend to move this into the K3s cluster. I also intend to store its configuration in this repo as I currently have no backup of it.
 
