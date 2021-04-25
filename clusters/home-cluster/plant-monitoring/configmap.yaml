@@ -32,7 +32,7 @@ data:
     #enabled = true
 
     # The period between two measurements in seconds (Default: 300)
-    period = 10
+    period = 300
 
     [MQTT]
 
