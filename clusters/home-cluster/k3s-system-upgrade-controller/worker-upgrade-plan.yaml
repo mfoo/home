@@ -1,3 +1,4 @@
+---
 apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
@@ -8,12 +9,12 @@ spec:
   cordon: true
   nodeSelector:
     matchExpressions:
-    - key: node-role.kubernetes.io/master
-      operator: DoesNotExist
+      - key: node-role.kubernetes.io/master
+        operator: DoesNotExist
   prepare:
     args:
-    - prepare
-    - server-plan
+      - prepare
+      - server-plan
   image: rancher/k3s-upgrade:v1.21.0-k3s1
   serviceAccountName: system-upgrade
   upgrade:
