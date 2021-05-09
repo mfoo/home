@@ -66,5 +66,7 @@ data:
       unit_of_measurement: "Lux"
 
     tplink:
-      switch:
+      comms_switch:
       - host: 192.168.1.235
+      washing_machine_switch:
+      - host: 192.168.3.20
