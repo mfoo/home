@@ -18,12 +18,13 @@ data:
     # script: !include scripts.yaml
     # scene: !include scenes.yaml
 
+    # Use postgres to record historic data
+    # https://www.home-assistant.io/integrations/recorder/
     recorder:
       db_url: postgresql://home-assistant:home-assistant-pass@home-assistant-postgresql/home-assistant
 
-    mqtt:
-      broker: mosquitto.mosquitto.svc.cluster.local
-
+    # MiFlora plant sensors
+    # https://www.home-assistant.io/integrations/plant/
     plant:
       banana_plant:
         sensors:
@@ -38,6 +39,19 @@ data:
         min_conductivity: 500
         min_temperature: 15
 
+    # I run an MQTT broker in Kubernetes for the MiFlora plant sensor devices
+    # https://www.home-assistant.io/integrations/mqtt/
+    mqtt:
+      broker: mosquitto.mosquitto.svc.cluster.local
+
+    # https://www.home-assistant.io/integrations/tplink/
+    tplink:
+      switch:
+      - host: 192.168.1.235 # Comms cabinet
+      - host: 192.168.3.20 # Washing machine
+
+    # Define some sensors manually
+    # https://www.home-assistant.io/integrations/sensor
     sensor:
     - platform: mqtt
       name: banana_plant_moisture
@@ -64,8 +78,47 @@ data:
       state_topic: homeassistant/sensor/test2/state
       value_template: "{{ value_json.light | int }}"
       unit_of_measurement: "Lux"
-
-    tplink:
-      switch:
-      - host: 192.168.1.235 # Comms cabinet
-      - host: 192.168.3.20 # Washing machine
+    - platform: template
+      sensors:
+        comms_switch_amps:
+          friendly_name_template: "{{ state_attr('switch.comms_switch','friendly_name') }} Current"
+          value_template: "{{ state_attr('switch.comms_switch','current_a') }}"
+          unit_of_measurement: "A"
+        comms_switch_watts:
+          friendly_name_template: "{{ state_attr('switch.comms_switch','friendly_name') }} Current Consumption"
+          value_template: "{{ state_attr('switch.comms_switch','current_power_w') }}"
+          unit_of_measurement: "W"
+        comms_switch_total_kwh:
+          friendly_name_template: "{{ state_attr('switch.comms_switch','friendly_name') }} Total Consumption"
+          value_template: "{{ state_attr('switch.comms_switch','total_energy_kwh') }}"
+          unit_of_measurement: "kWh"
+        comms_switch_volts:
+          friendly_name_template: "{{ state_attr('switch.comms_switch','friendly_name') }} Voltage"
+          value_template: "{{ state_attr('switch.comms_switch','voltage') }}"
+          unit_of_measurement: "V"
+        comms_switch_today_kwh:
+          friendly_name_template: "{{ state_attr('switch.comms_switch','friendly_name') }} Today's Consumption"
+          value_template: "{{ state_attr('switch.comms_switch','today_energy_kwh') }}"
+          unit_of_measurement: "kWh"
+    - platform: template
+      sensors:
+        washing_machine_amps:
+          friendly_name_template: "{{ state_attr('switch.washing_machine','friendly_name') }} Current"
+          value_template: "{{ state_attr('switch.washing_machine','current_a') }}"
+          unit_of_measurement: "A"
+        washing_machine_watts:
+          friendly_name_template: "{{ state_attr('switch.washing_machine','friendly_name') }} Current Consumption"
+          value_template: "{{ state_attr('switch.washing_machine','current_power_w') }}"
+          unit_of_measurement: "W"
+        washing_machine_total_kwh:
+          friendly_name_template: "{{ state_attr('switch.washing_machine','friendly_name') }} Total Consumption"
+          value_template: "{{ state_attr('switch.washing_machine','total_energy_kwh') }}"
+          unit_of_measurement: "kWh"
+        washing_machine_volts:
+          friendly_name_template: "{{ state_attr('switch.washing_machine','friendly_name') }} Voltage"
+          value_template: "{{ state_attr('switch.washing_machine','voltage') }}"
+          unit_of_measurement: "V"
+        washing_machine_today_kwh:
+          friendly_name_template: "{{ state_attr('switch.washing_machine','friendly_name') }} Today's Consumption"
+          value_template: "{{ state_attr('switch.washing_machine','today_energy_kwh') }}"
+          unit_of_measurement: "kWh"
