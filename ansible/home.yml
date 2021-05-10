@@ -1,0 +1,19 @@
+---
+# This is the inventory file for the hosts on my home network
+
+kubernetes:
+  hosts:
+    ubuntu.home: # k8s-master, needs hostname changing!
+      ansible_user: ubuntu
+    k8s-worker-2:
+      ansible_user: ubuntu
+
+piholes:
+  hosts:
+    pi-hole.home:
+      ansible_user: ubuntu
+
+ubuntu:
+  children:
+    kubernetes:
+    piholes:

@@ -1,0 +1,11 @@
+---
+- name: Install packages for my Kubernetes applications
+  hosts: kubernetes
+  become: true
+  gather_facts: false
+  tasks:
+    - apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - nfs-common # For the provisioning volumes from my NAS
