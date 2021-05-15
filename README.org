@@ -3,8 +3,6 @@
 #+STARTUP: showall
 #+OPTIONS: ^:nil
 
-![Ansible Lint](https://github.com/mfoo/home/actions/workflows/ansible-lint.yml/badge.svg)
-
 My partner and I live in a flat in London with a bedroom, an office, two bathrooms, and a combined living room and kitchen space. We spend a large chunk of time at home and want our house to be as convenient and cosy as possible. Part of my contribution to this goal is to approach it from a technological angle and this repository captures how I go about that. It serves both as my documentation and as a configuration store - most software used in our house runs on a small Kubernetes cluster of [[https://www.raspberrypi.org/products/raspberry-pi-4-model-b/][Raspberry Pi 4b]]s running [[https://k3s.io/][k3s]] and [[https://fluxcd.io/][flux]], and this repository is also my flux repository.
 
 The main components are:
