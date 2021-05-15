@@ -3,15 +3,17 @@
 #+STARTUP: showall
 #+OPTIONS: ^:nil
 
-My partner and I live in a flat in London with a bedroom, an office, two bathrooms, and a combined living room and kitchen space. We spend a large chunk of time at home and want our house to be as convenient and cosy as possible. Part of my contribution to this goal is to approach it from a technological angle and this repository captures how I go about that. It serves both as my documentation and as a configuration store - most software used in our house runs on a small Kubernetes cluster of [[https://www.raspberrypi.org/products/raspberry-pi-4-model-b/][Raspberry Pi 4b]]s running [[https://k3s.io/][k3s]] and [[https://fluxcd.io/][flux]], and this repository is also my flux repository.
+This repository is my private smart home configuration. It contains the GitOps configuration for my home [[https://k3s.io/][k3s]] cluster running [[https://fluxcd.io/][Flux CD]], including [[https://www.home-assistant.io/][Home Assistant]] for centralised control and automation of my smart devices.
 
-The main components are:
-- [[https://store.ui.com/collections/unifi-network-routing-switching/products/unifi-dream-machine][UniFi Dream Machine]] as my main switch and wireless access point
+The main components powering my house are:
+- A Raspberry Pi 4 2Gb with a USB-C Ethernet adapter running [[https://openwrt.org/start][OpenWrt]] as my router and VPN client
+- [[https://store.ui.com/collections/unifi-network-routing-switching/products/unifi-dream-machine][UniFi Dream Machine]] as a switch and wireless access point
 - [[https://www.ui.com/unifi-switching/unifi-switch-8-150w/][UniFi Switch 8 150W]] as a secondary switch providing PoE and additional ports
-- [[https://openwrt.org/start][OpenWrt]] as my router and VPN client (frustratingly the UDM has no built-in OpenVPN/wireguard VPN client)
-- [[https://global.download.synology.com/download/Document/Hardware/DataSheet/DiskStation/16-year/DS216j/enu/Synology_DS216j_Data_Sheet_enu.pdf][Synology DS216j NAS]], acting as a data store for backups and an NFS volume provider for my Kubernetes cluster via the [[https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner][nfs-subdir-external-provisioner]]. This is a little old but does its job well and doesn't need replacing. It regularly backs up to [[https://aws.amazon.com/glacier/][Amazon S3 Glacier]]
-- [[https://pi-hole.net/][Pi-hole]] as a local DNS server and DNS-based ad blocker advertised over DHCP
-- [[https://www.home-assistant.io/][Home Assistant]] as the controller for all 'smart home' style automations. This project is /fantastic/, and is connected to;
+- [[https://global.download.synology.com/download/Document/Hardware/DataSheet/DiskStation/16-year/DS216j/enu/Synology_DS216j_Data_Sheet_enu.pdf][Synology DS216j NAS]] for laptop backups and also exposing NFS volumes to my Kubernetes cluster via the [[https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner][nfs-subdir-external-provisioner]]. It regularly backs up to [[https://aws.amazon.com/glacier/][Amazon S3 Glacier]]
+- A Raspberry Pi 3b running [[https://pi-hole.net/][Pi-hole]] as a network ad blocker
+- 3 Raspberry Pi 4 8Gb forming the Kubernetes cluster
+
+My Home Assistant instance is the brains for all smart home automations. This project is /fantastic/. Mine is connected to:
   - [[https://www.philips-hue.com/en-gb][Philips Hue]] smart lights, switches, and motion sensors
   - [[https://sonoff.tech/product/smart-home-security/zbbridge/][SONOFF ZBBridge]] flashed with [[https://tasmota.github.io/docs/][Tasmota firmware]], acting as a bridge for Zigbee-based devices and connected via WiFi to Home Assistant
   - [[https://sonoff.tech/product/smart-home-security/snzb-02/][SONOFF SNZB-02]] wireless temperature and humidity sensors
@@ -22,16 +24,10 @@ The main components are:
   - [[https://www.tp-link.com/uk/home-networking/smart-plug/kp115/][TP-Link Kasa KP115]] smart WiFi plugs to provide both control and energy monitoring of our appliances such as humidifiers
   - Security cameras
 
-We do not have a UPS or redundant internet connection like some of the more fully featured setups in [[https://www.reddit.com/r/homelab/][r/homelab]]. We also do not have a television or any audio equipment outside of personal headphones / earphones. Our flat has underfloor heating but does not currently have a smart thermostat - something to investigate later.
-
-OpenWRT runs on a dedicated Raspberry Pi 4b that is connected to the WAN port from my ISP via [[https://www.anker.com/products/variant/usbc-to-ethernet-adapter/A83410A1][USB-C Ethernet adapter]] and to the WAN port of my UDM through its onboard Ethernet socket.
-
-The Pi-hole also currently runs on a dedicated Raspberry Pi 4b, but this is overkill and at some point I will attempt to move it into my K3s cluster, ideally also providing some redundancy.
-
-All other software runs on K3s on the Pis, which are running Ubuntu Server 20.04.2 LTS 64-bit.
+The main component that is not yet automated is my underfloor heating - a smart thermostat with zone support is on the list of things to investigate later.
 
 * Network Diagram
-  I do not use IPv6 on my home network and all devices currently are on the same VLAN. Fixing this second part is definitely on the TODO list.
+  I do not use IPv6 on my home network and all devices currently are on the same VLAN.
 
   | Range            | Max devices | Description                                 |
   |------------------+-------------+---------------------------------------------|
@@ -43,11 +39,8 @@ All other software runs on K3s on the Pis, which are running Ubuntu Server 20.04
   | 192.168.3.0/24   |         254 | IoT network                                 |
   | 192.168.4.0/24   |         254 | Guest network, all devices isolated         |
 
-  We sometimes have friends round so I have a separate authenticated WiFi network for visitors using the guest range which is usually disabled unless we expect guests. It has no restrictions except using the Pi-hole as a DNS server. All devices on that network are isolated and can only talk to the default gateway and DNS server.
-
   The UDM is the DHCP server and all DHCP advertisements from other clients are blocked.
 
-  My work devices are segregated from my home devices and Kubernetes cluster. Partly to stop distractions and partly because it's easier to set up a site-to-site VPN that only work devices use if I need to.
 * Pi-hole configuration
   The Pi-hole uses multiple restriction lists and serves a few LAN DNS entries. It resolves non-blacklisted addresses using a local [[https://www.nlnetlabs.nl/projects/unbound/about/][Unbound]] installation. It is currently running on an 8gb Pi 4B which is much larger than it needs, so I intend to move this into the K3s cluster. I also intend to store its configuration in this repo as I currently have no backup of it.
 
