@@ -59,7 +59,7 @@ I do not use IPv6 on my home network and all devices currently are on the same
 VLAN.
 
 | Range            | Max devices | Description                                 |
-|------------------+-------------+---------------------------------------------|
+|------------------|-------------|---------------------------------------------|
 | 192.168.1.0/28   |          16 | Networking hardware (Router, switches, APs) |
 | 192.168.1.16/28  |          16 | Infrastructure (DNS, storage, printer)      |
 | 192.168.1.32/28  |          16 | Kubernetes cluster                          |
