@@ -73,6 +73,11 @@ VLAN.
 The UDM is the DHCP server and all DHCP advertisements from other clients are
 blocked.
 
+A single Dream Machine is enough to give good 5GHz coverage for the whole house
+without any extra access points.
+
+![WiFi coverage floor plan](img/5G_wifi_map.png)
+
 ## Pi-hole configuration
 
 The Pi-hole uses multiple restriction lists and serves a few LAN DNS entries. It
