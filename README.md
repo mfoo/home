@@ -1,5 +1,7 @@
 # Martin's Home Automation Project
 
+![Ansible Lint](https://github.com/mfoo/home/actions/workflows/ansible-lint.yml/badge.svg)
+
 This repository is my private smart home configuration. It contains the GitOps
 configuration for my home [k3s](https://k3s.io/) cluster running [Flux
 CD](https://fluxcd.io/), including [Home
