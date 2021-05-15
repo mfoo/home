@@ -45,6 +45,8 @@ All other software runs on K3s on the Pis, which are running Ubuntu Server 20.04
 
   We sometimes have friends round so I have a separate authenticated WiFi network for visitors using the guest range which is usually disabled unless we expect guests. It has no restrictions except using the Pi-hole as a DNS server. All devices on that network are isolated and can only talk to the default gateway and DNS server.
 
+  The UDM is the DHCP server and all DHCP advertisements from other clients are blocked.
+
   My work devices are segregated from my home devices and Kubernetes cluster. Partly to stop distractions and partly because it's easier to set up a site-to-site VPN that only work devices use if I need to.
 * Pi-hole configuration
   The Pi-hole uses multiple restriction lists and serves a few LAN DNS entries. It resolves non-blacklisted addresses using a local [[https://www.nlnetlabs.nl/projects/unbound/about/][Unbound]] installation. It is currently running on an 8gb Pi 4B which is much larger than it needs, so I intend to move this into the K3s cluster. I also intend to store its configuration in this repo as I currently have no backup of it.
@@ -65,24 +67,26 @@ All other software runs on K3s on the Pis, which are running Ubuntu Server 20.04
 	- Cooling
   - Ansible configuration for managing the Raspberry Pis
 
-** Notes on Kubernetes installation
-   SSH in, change password.
+** Notes adding a new Pi to my Kubernetes cluster
+   Setting up a new Pi is pretty simple:
+   - Use the [Raspberry Pi Imager](https://www.raspberrypi.org/blog/raspberry-pi-imager-imaging-utility/) tool to flash the MicroSD card, connect it to the switch and power up
+   - SSH in, change the password
+   - Set the hostname (e.g. =k8s-worker-3= in =/etc/hostname=)
+   - Update everything (=sudo apt-get update && sudo apt-get upgrade=)
+   - Set a static IP in the Kubernetes subnet in the Unifi controller
+   - Print out a sticky label and label the network cable with the hostname (lesson learned the hard way)
+   - Add ~cgroup_memory=1 cgroup_enable=memory~ to the end of =/boot/firmware/cmdline.txt=
+   - Reboot the host (=sudo reboot=)
+   - Copy my public key - the new hostname should resolve now (=ssh-copy-id ubuntu@k8s-worker-3=)
+   - Add the host to my Ansible inventory in =ansible/home.yml=
+   - Run Ansible (=ansible-playbook -i home.yml site.yml=)
+   - Run =k3sup=:
 
    #+begin_src sh
-   ssh-copy-id ubuntu@192.168.1.3
-   export IP=192.168.1.3
-   k3sup install --ip $IP --user ubuntu
+   k3sup join --server-host k8s-master --host k8s-worker-3 --user ubuntu
    #+end_src
 
-   K3s instructions for joining.
-
-   Remember to set cgroups:
-
-   #+begin_src sh
-cgroup_memory=1 cgroup_enable=memory
-   #+end_src
-
-   in =/boot/firmware/cmdline.txt=
+   - Watch as the node is joined and the Rancher =system-upgrade-controller= cordons the node and upgrades it to the correct version and uncordons it
 ** Bluetooth
    =pi-bluetooth= package
 https://raspberrypi.stackexchange.com/questions/114586/rpi-4b-bluetooth-unavailable-on-ubuntu-20-04
