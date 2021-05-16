@@ -1,0 +1,14 @@
+# See https://github.com/marketplace/actions/markdownlint-mdl-action
+name: Markdown Lint
+
+on: [push, pull_request]
+
+jobs:
+  delivery:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@main
+    - name: Run mdl
+      uses: actionshub/markdownlint@main
