@@ -55,17 +55,17 @@ project is *fantastic*. Mine is connected to:
 The main component that is not yet automated is my underfloor heating - a smart
 thermostat with zone support is on the list of things to investigate later.
 
-## Network Diagram
+## Network Layout
 
 I do not use IPv6 on my home network and all devices currently are on the same
 VLAN.
 
 | Range            | Max devices | Description                                 |
 |------------------|-------------|---------------------------------------------|
-| 192.168.1.0/28   |          16 | Networking hardware (Router, switches, APs) |
-| 192.168.1.16/28  |          16 | Infrastructure (DNS, storage, printer)      |
-| 192.168.1.32/28  |          16 | Kubernetes cluster                          |
-| 192.168.1.128/25 |         128 | Gen pop (DHCP range)                        |
+| 192.168.1.0/28   |          14 | Networking hardware (Router, switches, APs) |
+| 192.168.1.16/28  |          14 | Infrastructure (DNS, storage, printer)      |
+| 192.168.1.32/28  |          14 | Kubernetes cluster                          |
+| 192.168.1.128/25 |         126 | DHCP allocation range                       |
 | 192.168.2.0/24   |         254 | Office network                              |
 | 192.168.3.0/24   |         254 | IoT network                                 |
 | 192.168.4.0/24   |         254 | Guest network, all devices isolated         |
@@ -73,8 +73,8 @@ VLAN.
 The UDM is the DHCP server and all DHCP advertisements from other clients are
 blocked.
 
-A single Dream Machine is enough to give good 5GHz coverage for the whole house
-without any extra access points.
+My house isn't huge so a single Dream Machine is enough to give good 5GHz
+coverage for the whole house without any extra access points.
 
 ![WiFi coverage floor plan](img/5G_wifi_map.png)
 
