@@ -3,11 +3,17 @@
 ![Ansible Lint](https://github.com/mfoo/home/actions/workflows/ansible-lint.yml/badge.svg)
 ![Markdown Lint](https://github.com/mfoo/home/actions/workflows/markdown-lint.yml/badge.svg)
 
-This repository is my private smart home configuration. It contains the GitOps
-configuration for my home [k3s](https://k3s.io/) cluster running [Flux
-CD](https://fluxcd.io/), including [Home
-Assistant](https://www.home-assistant.io/) for centralised control and
-automation of my smart devices.
+This repository documents my Kubernetes-on-Raspberry-Pi-powered smart home. It
+contains my [Home Assistant](https://www.home-assistant.io/) configuration and
+automations as well as the GitOps configuration for my small Kubernetes cluster
+and some Ansible configuration to control the Raspberry Pis.
+
+The Pi cluster runs on [k3s](https://k3s.io/) and uses [Flux
+CD](https://fluxcd.io/) pointing at this repository to keep the cluster
+configuration up-to-date. The config for the home cluster can be found in
+[here](clusters/home-cluster).
+
+## Equipment
 
 The main components powering my house are:
 
@@ -83,33 +89,14 @@ coverage for the whole house without any extra access points.
 
 The Pi-hole uses multiple restriction lists and serves a few LAN DNS entries. It
 resolves non-blacklisted addresses using a local
-[Unbound](https://www.nlnetlabs.nl/projects/unbound/about/) installation. It is
-currently running on an 8gb Pi 4B which is much larger than it needs, so I
-intend to move this into the K3s cluster. I also intend to store its
-configuration in this repo as I currently have no backup of it.
+[Unbound](https://www.nlnetlabs.nl/projects/unbound/about/) installation. The Pi
+3b is plenty powerful enough to run this, but the config isn't currently stored
+in this repo.
 
 This setup lets me have a local DNS cache for fast responses, improves DNS
 security, and doesn't let Google/OpenDNS/Cloudflare/Quad9 see our DNS queries.
 
-TODO: Discuss DNSSEC and the benefits of unbound.
-
-TODO: Look into implementing a Pi-hole module for
-[external-dns](https://github.com/kubernetes-sigs/external-dns/), letting me add
-custom Pi-hole DNS entries via Kubernetes =Service= objects.
-
 ## Notes
-
-TODO: Add notes in case I need to rebuild this from scratch and to help other people:
-
-- Setting up OpenWRT on the Pi
-- Configuring Pi-hole and Unbound. I used
-  [these docs](https://openwrt.org/toh/raspberry_pi_foundation/raspberry_pi)
-- Installing K3s via [k3sup](https://github.com/alexellis/k3sup)
-- My Kubernetes cluster
-- Switch setup and IP allocation
-- Power supplies
-- Cooling
-- Ansible configuration for managing the Raspberry Pis
 
 ### Adding a new Pi to my Kubernetes cluster
 
@@ -139,11 +126,3 @@ k3sup join --server-host k8s-master --host k8s-worker-3 --user ubuntu
 
 - Watch as the node is joined and the Rancher `system-upgrade-controller`
   cordons the node and upgrades it to the correct version and uncordons it
-
-### Upgrades
-
-TODO: Document rancher automated upgrades
-
-```sh
-kubectl apply -f https://github.com/rancher/system-upgrade-controller/releases/download/v0.6.2/system-upgrade-controller.yaml
-```
