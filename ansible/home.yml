@@ -3,7 +3,7 @@
 
 kubernetes:
   hosts:
-    ubuntu.home: # k8s-master, needs hostname changing!
+    k8s-master-1:
       ansible_user: ubuntu
     k8s-worker-1:
       ansible_user: ubuntu
