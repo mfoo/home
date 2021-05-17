@@ -10,3 +10,5 @@
         state: present
       with_items:
         - nfs-common # For the provisioning volumes from my NAS
+        - pi-bluetooth # For the BLE beacon and my Mi Flora devices
+        - bluez
