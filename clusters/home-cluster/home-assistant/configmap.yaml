@@ -49,6 +49,8 @@ data:
       switch:
       - host: 192.168.1.235 # Comms cabinet
       - host: 192.168.3.20 # Washing machine
+      strip:
+      - host: 192.168.3.52
 
     # Define some sensors manually
     # https://www.home-assistant.io/integrations/sensor
