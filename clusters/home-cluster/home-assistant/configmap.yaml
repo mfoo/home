@@ -49,6 +49,7 @@ data:
       switch:
       - host: 192.168.1.235 # Comms cabinet
       - host: 192.168.3.20 # Washing machine
+      - host: 192.168.3.164 # Nostromo plug
       strip:
       - host: 192.168.3.52
 
@@ -123,4 +124,26 @@ data:
         washing_machine_today_kwh:
           friendly_name_template: "{{ state_attr('switch.washing_machine','friendly_name') }} Today's Consumption"
           value_template: "{{ state_attr('switch.washing_machine','today_energy_kwh') }}"
+          unit_of_measurement: "kWh"
+    - platform: template
+      sensors:
+        nostromo_amps:
+          friendly_name_template: "{{ state_attr('switch.nostromo','friendly_name') }} Current"
+          value_template: "{{ state_attr('switch.nostromo','current_a') }}"
+          unit_of_measurement: "A"
+        nostromo_watts:
+          friendly_name_template: "{{ state_attr('switch.nostromo','friendly_name') }} Current Consumption"
+          value_template: "{{ state_attr('switch.nostromo','current_power_w') }}"
+          unit_of_measurement: "W"
+        nostromo_total_kwh:
+          friendly_name_template: "{{ state_attr('switch.nostromo','friendly_name') }} Total Consumption"
+          value_template: "{{ state_attr('switch.nostromo','total_energy_kwh') }}"
+          unit_of_measurement: "kWh"
+        nostromo_volts:
+          friendly_name_template: "{{ state_attr('switch.nostromo','friendly_name') }} Voltage"
+          value_template: "{{ state_attr('switch.nostromo','voltage') }}"
+          unit_of_measurement: "V"
+        nostromo_today_kwh:
+          friendly_name_template: "{{ state_attr('switch.nostromo','friendly_name') }} Today's Consumption"
+          value_template: "{{ state_attr('switch.nostromo','today_energy_kwh') }}"
           unit_of_measurement: "kWh"
