@@ -8,6 +8,9 @@ data:
   configuration.yaml: |
     # Configure a default setup of Home Assistant (frontend, api, etc)
     default_config: {}
+    
+    # Enable cloud integration panel
+    cloud: {}
 
     # Text to speech
     tts:
