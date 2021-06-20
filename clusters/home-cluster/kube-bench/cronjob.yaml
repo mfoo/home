@@ -6,7 +6,7 @@ metadata:
   name: kube-bench
   namespace: kube-bench
 spec:
-  schedule: "0 0 0 ? * * *"
+  schedule: "0 0 * * *"
   jobTemplate:
     spec:
       template:
