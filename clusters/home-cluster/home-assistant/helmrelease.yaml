@@ -14,10 +14,10 @@ spec:
         kind: HelmRepository
         name: k8s-at-home
         namespace: flux-system
-      interval: 60m
+      interval: 10m
   values:
     image:
-      tag: "2021.6.5"
+      tag: "2021.6.6"
     ingress:
       main:
         enabled: true
