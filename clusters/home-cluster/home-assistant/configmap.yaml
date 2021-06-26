@@ -7,11 +7,9 @@ metadata:
 data:
   configuration.yaml: |
     # Configure a default setup of Home Assistant (frontend, api, etc)
-    default_config: {}
+    default_config:
+      cloud:
     
-    # Enable cloud integration panel
-    cloud: {}
-
     # Text to speech
     tts:
     - platform: google_translate
