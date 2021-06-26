@@ -19,12 +19,11 @@ spec:
     image:
       tag: "2021.6.6"
     ingress:
-      main:
-        enabled: true
-        hosts:
-        - host: home-assistant.home
-          paths:
-          - path: "/"
+      enabled: true
+      hosts:
+      - host: home-assistant.home
+        paths:
+        - path: "/"
     additionalVolumes:
       - name: config-volume
         configMap:
