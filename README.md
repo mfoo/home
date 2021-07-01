@@ -18,7 +18,6 @@ configuration up-to-date. The config for the home cluster can be found in
 The main components powering my house are:
 
 - A Raspberry Pi 4 2Gb with a USB-C Ethernet adapter running
-  [OpenWRT](https://openwrt.org/) as my router and VPN client
 - [UniFi Dream
   Machine](https://store.ui.com/collections/unifi-network-routing-switching/products/unifi-dream-machine)
   as a switch and wireless access point
