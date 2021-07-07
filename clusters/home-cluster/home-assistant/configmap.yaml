@@ -10,6 +10,7 @@ data:
     default_config:
       cloud:
       device_tracker:
+      map:
 
     # Text to speech
     tts:
