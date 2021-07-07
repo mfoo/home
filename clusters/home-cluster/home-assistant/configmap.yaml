@@ -9,6 +9,7 @@ data:
     # Configure a default setup of Home Assistant (frontend, api, etc)
     default_config:
       cloud:
+      device_tracker:
 
     # Text to speech
     tts:
