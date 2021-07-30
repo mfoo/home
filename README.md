@@ -23,8 +23,7 @@ The main components powering my house are:
   as a switch and wireless access point
 - [UniFi Switch 8 150W](https://www.ui.com/unifi-switching/unifi-switch-8-150w/)
   as a secondary switch providing PoE and additional ports
-- [Synology DS216j
-  NAS](https://global.download.synology.com/download/Document/Hardware/DataSheet/DiskStation/16-year/DS216j/enu/Synology_DS216j_Data_Sheet_enu.pdf)
+- [Synology DS1621+ NAS](https://www.synology.com/en-us/products/DS1621+)
   for laptop backups and also exposing NFS volumes to my Kubernetes cluster via
   the
   [nfs-subdir-external-provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner).

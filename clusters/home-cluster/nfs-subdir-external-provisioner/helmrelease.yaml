@@ -17,5 +17,5 @@ spec:
       interval: 60m
   values:
     nfs:
-      server: 192.168.1.10
+      server: 192.168.1.18
       path: /volume1/home-cluster-nfs
