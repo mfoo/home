@@ -34,7 +34,6 @@ spec:
         subPath: configuration.yaml
     persistence:
       config:
-        # HA stores auth data in .storage/auth in the config folder
         enabled: true
         storageClass: nfs-client
     postgresql:
