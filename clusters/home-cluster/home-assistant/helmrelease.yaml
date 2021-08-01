@@ -36,14 +36,6 @@ spec:
       config:
         enabled: true
         storageClass: nfs-client
-    postgresql:
-      enabled: true
-      persistence:
-        enabled: true
-        storageClass: nfs-client
-      image:
-        repository: postgres
-        tag: 13.2
     prometheus:
       serviceMonitor:
         enabled: true
