@@ -3,15 +3,11 @@
     "config:base"
   ],
   "regexManagers": [
-    // regexManager to read and process helm repositories
     {
-      // tell renovatebot to parse only helm releases
       "fileMatch": ["clusters/home-cluster/.+helm-release\\.yaml$"],
-      // tell renovatebot to match the following pattern in helm release files
       "matchStrings": [
         "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
       ],
-      // tell renovatebot to search helm repositories
       "datasourceTemplate": "helm"
     }
   ]
