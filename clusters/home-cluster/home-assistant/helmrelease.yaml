@@ -10,7 +10,7 @@ spec:
     spec:
       # renovate: registryUrl=https://k8s-at-home.com/charts/
       chart: home-assistant
-      version: "9.3.0"
+      version: 9.3.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home
@@ -18,7 +18,7 @@ spec:
       interval: 10m
   values:
     image:
-      tag: "2021.7.4"
+      tag: 2021.7.4
     ingress:
       main:
         enabled: true
