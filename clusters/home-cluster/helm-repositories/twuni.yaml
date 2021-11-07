@@ -4,5 +4,5 @@ metadata:
   name: twuni
   namespace: flux-system
 spec:
-  interval: 60m
+  interval: 1m
   url: https://helm.twun.io

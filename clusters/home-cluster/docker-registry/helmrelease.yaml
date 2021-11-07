@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: twuni
         namespace: flux-system
-      interval: 60m
+      interval: 1m
   values:
     persistence:
       enabled: true
