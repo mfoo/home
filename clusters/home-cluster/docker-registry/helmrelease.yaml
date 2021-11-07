@@ -20,3 +20,5 @@ spec:
       enabled: true
       size: 50Gi
       storageClass: nfs-client
+    service:
+      type: LoadBalancer
