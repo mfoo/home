@@ -21,6 +21,7 @@ spec:
         # HA stores auth data in .storage/auth in the config folder
         enabled: true
         storageClass: nfs-client
+        accessMode: ReadWriteOnce
         size: "1Gi"
     service:
       # This needs to be accessible from outside the cluster so IoT components
