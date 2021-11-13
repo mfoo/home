@@ -23,7 +23,7 @@ spec:
     ingress:
       enabled: true
       tls:
-        hosts:
+      - hosts:
         - docker-registry.yakslap.me
         secretName: docker-registry-ingress-cert
       hosts:
