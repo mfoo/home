@@ -23,3 +23,5 @@ spec:
     ingress:
       enabled: true
       path: /docker-registry
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: /
