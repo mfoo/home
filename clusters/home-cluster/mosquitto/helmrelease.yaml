@@ -24,6 +24,7 @@ spec:
         accessMode: ReadWriteOnce
         size: "1Gi"
     service:
-      # This needs to be accessible from outside the cluster so IoT components
-      # can speak to it.
-      type: NodePort
+      main:
+        # This needs to be accessible from outside the cluster so IoT components
+        # can speak to it.
+        type: NodePort
