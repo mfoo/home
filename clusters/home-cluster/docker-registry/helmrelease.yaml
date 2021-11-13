@@ -23,7 +23,5 @@ spec:
     ingress:
       enabled: true
       hosts:
-      - k8s.home
-      path: /docker-registry
-      annotations:
-        traefik.ingress.kubernetes.io/rewrite-target: /
+      - docker-registry.k8s.home
+      path: /
