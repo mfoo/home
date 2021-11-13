@@ -22,4 +22,4 @@ spec:
       storageClass: nfs-client
     ingress:
       enabled: true
-      path: docker-registry
+      path: /docker-registry
