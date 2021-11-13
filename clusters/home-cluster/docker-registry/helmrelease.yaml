@@ -22,6 +22,8 @@ spec:
       storageClass: nfs-client
     ingress:
       enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
       tls:
       - hosts:
         - docker-registry.yakslap.me
