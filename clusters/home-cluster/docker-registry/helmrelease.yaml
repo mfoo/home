@@ -22,6 +22,8 @@ spec:
       storageClass: nfs-client
     ingress:
       enabled: true
+      hosts:
+      - k8s.home
       path: /docker-registry
       annotations:
         nginx.ingress.kubernetes.io/rewrite-target: /
