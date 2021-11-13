@@ -26,4 +26,4 @@ spec:
       - k8s.home
       path: /docker-registry
       annotations:
-        nginx.ingress.kubernetes.io/rewrite-target: /
+        traefik.ingress.kubernetes.io/rewrite-target: /
