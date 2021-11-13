@@ -22,6 +22,10 @@ spec:
       storageClass: nfs-client
     ingress:
       enabled: true
+      tls:
+        hosts:
+        - docker-registry.yakslap.me
+        secretName: docker-registry-ingress-cert
       hosts:
-      - docker-registry.k8s.home
+      - docker-registry.yakslap.me
       path: /
