@@ -16,8 +16,5 @@ spec:
     emailConfigs:
     - sendResolved: true
       to: martin+home-prometheus@mfoot.com
-      smarthost: smtp.gmail.com:587
-      authSecret:
-        name: gmail-smtp
-        key: password
+      smarthost: k8s-worker-1.home:25
       
