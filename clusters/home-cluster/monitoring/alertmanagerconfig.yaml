@@ -2,6 +2,7 @@ apiVersion: monitoring.coreos.com/v1alpha1
 kind: AlertmanagerConfig
 metadata:
   name: home-email
+  namespace: monitoring
   labels:
     alertmanagerConfig: custom
 spec:
