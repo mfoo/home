@@ -17,9 +17,6 @@ spec:
         namespace: flux-system
       interval: 1m
   values:
-    prometheusOperator:
-      admissionWebhooks:
-        enabled: false
     prometheus:
       server:
         persistentVolume:
