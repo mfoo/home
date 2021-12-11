@@ -18,4 +18,5 @@ spec:
     - sendResolved: true
       to: martin+home-prometheus@mfoot.com
       smarthost: k8s-worker-1.home:25
+      from: martin+home-prometheus@mfoot.com
       
