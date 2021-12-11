@@ -23,4 +23,5 @@ spec:
         name: synology-minio
         bucket: kubernetes-backups
         config:
-          region: us-east-1
+          s3ForcePathStyle: true
+          s3Url: http://chunkynas.local:9000
