@@ -19,4 +19,8 @@ spec:
   values:
     configuration:
       provider: aws
-      
+      backupStorageLocation:
+        name: synology-minio
+        bucket: kubernetes-backups
+        config:
+          region: us-east-1
