@@ -18,8 +18,7 @@ spec:
       interval: 10m
   initContainers:
   - name: velero-plugin-for-aws
-    image: velero/velero-plugin-for-aws:v1.1.0
-    imagePullPolicy: IfNotPresent
+    image: velero/velero-plugin-for-aws:v1.2.0
     volumeMounts:
       - mountPath: /target
         name: plugins
