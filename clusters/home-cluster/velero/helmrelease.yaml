@@ -26,6 +26,7 @@ spec:
     kubectl:
       image:
         repository: docker.io/rancher/kubectl
+        tag: 1.22.2
     configuration:
       provider: aws
       backupStorageLocation:
