@@ -21,6 +21,8 @@ spec:
       server:
         persistentVolume:
           enabled: true
+      ingress:
+        enabled: true
       prometheusSpec:
         storageSpec:
           volumeClaimTemplate:
