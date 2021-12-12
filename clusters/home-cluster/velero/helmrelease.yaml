@@ -23,6 +23,9 @@ spec:
       volumeMounts:
       - mountPath: /target
         name: plugins
+    kubectl:
+      image:
+        repository: rancher/kubectl
     configuration:
       provider: aws
       backupStorageLocation:
