@@ -27,12 +27,3 @@ spec:
       image:
         repository: docker.io/rancher/kubectl
         tag: v1.22.2
-    configuration:
-      provider: aws
-      backupStorageLocation:
-        name: synology-minio
-        bucket: kubernetes-backups
-        default: true
-        config:
-          s3ForcePathStyle: true
-          s3Url: http://chunkynas.local:9000
