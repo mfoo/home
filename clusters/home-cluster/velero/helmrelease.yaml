@@ -25,7 +25,7 @@ spec:
         name: plugins
     kubectl:
       image:
-        repository: docker.io/rancher/kubectl
+        repository: rancher/kubectl
         tag: 1.22.2
     configuration:
       provider: aws
