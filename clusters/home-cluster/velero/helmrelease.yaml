@@ -16,18 +16,19 @@ spec:
         name: vmware-tanzu
         namespace: flux-system
       interval: 10m
-  initContainers:
-  - name: velero-plugin-for-aws
-    image: velero/velero-plugin-for-aws:v1.2.0
-    volumeMounts:
+  values:
+    initContainers:
+    - name: velero-plugin-for-aws
+      image: velero/velero-plugin-for-aws:v1.3.0
+      volumeMounts:
       - mountPath: /target
         name: plugins
-  values:
     configuration:
       provider: aws
       backupStorageLocation:
         name: synology-minio
         bucket: kubernetes-backups
+        default: true
         config:
           s3ForcePathStyle: true
           s3Url: http://chunkynas.local:9000
