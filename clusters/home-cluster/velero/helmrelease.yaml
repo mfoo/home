@@ -25,7 +25,7 @@ spec:
         name: plugins
     kubectl:
       image:
-        repository: rancher/kubectl
+        repository: docker.io/rancher/kubectl
     configuration:
       provider: aws
       backupStorageLocation:
