@@ -3,6 +3,6 @@
     "config:base"
   ],
   "flux": {
-    "fileMatch": ["clusters/home-cluster/.+\\.yaml$"]
+    "fileMatch": ["clusters/home-cluster/*/.+\\.yaml$"]
   }
 }
