@@ -2,13 +2,7 @@
   "extends": [
     "config:base"
   ],
-  "regexManagers": [
-    {
-      "fileMatch": ["clusters/home-cluster/.+helm-?release\\.yaml$"],
-      "matchStrings": [
-        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
-      ],
-      "datasourceTemplate": "helm"
-    }
-  ]
+  "flux": {
+    "fileMatch": ["clusters/home-cluster/.+\\.yaml$"]
+  }
 }
