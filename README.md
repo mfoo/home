@@ -19,9 +19,13 @@ The main components powering my house are:
 
 - [UniFi Dream
   Machine](https://store.ui.com/collections/unifi-network-routing-switching/products/unifi-dream-machine)
-  as a switch and wireless access point
+  as a switch and router with the access point disabled
 - [UniFi Switch 8 150W](https://www.ui.com/unifi-switching/unifi-switch-8-150w/)
   as a secondary switch providing PoE and additional ports
+- [UniFi Access Point WiFi 6 Pro](https://store.ui.com/products/unifi-ap6-professional)
+  as a WiFi 6 AP using PoW from the Switch 8 150W
+- [UniFi Flex Mini](https://store.ui.com/collections/unifi-network-switching/products/usw-flex-mini)
+  as an additional switch to provide some extra ports in a cute form factor
 - [Synology DS1621+ NAS](https://www.synology.com/en-us/products/DS1621+)
   for laptop backups and also exposing NFS volumes to my Kubernetes cluster via
   the
@@ -51,9 +55,10 @@ project is *fantastic*. Mine is connected to:
   daemon that polls all configured Mi Flora sensors and pushes the results to
   Mosquitto
 - [TP-Link Kasa
-  KP115](https://www.tp-link.com/uk/home-networking/smart-plug/kp115/) WiFi
-  smart plugs to provide both control and energy monitoring of our appliances
-  such as humidifiers
+  KP115](https://www.tp-link.com/uk/home-networking/smart-plug/kp115/) and
+  [TP-Link Kasa KP303](https://www.tp-link.com/uk/home-networking/smart-plug/kp303/)
+  WiFi smart plugs to provide both control and energy monitoring of our
+  appliances such as humidifiers
 - Security cameras
 
 The main component that is not yet automated is my underfloor heating - a smart
@@ -90,8 +95,13 @@ resolves non-blacklisted addresses using a local
 3b is plenty powerful enough to run this, but the config isn't currently stored
 in this repo.
 
-This setup lets me have a local DNS cache for fast responses, improves DNS
-security, and doesn't let Google/OpenDNS/Cloudflare/Quad9 see our DNS queries.
+## TODO
+- [ ] Move to a separate WiFi network for IoT devices and implement VLANs
+- [ ] Update this README to cover single points of failure (DNS)
+- [ ] Update this README with better instructions / notes
+- [ ] Move to powering the Pi Kubernetes cluster with PoE
+- [ ] Move to netbooting the Pi Kubernetes cluster - I've had two MicroSD cards
+      fail and counting
 
 ## Notes
 
