@@ -96,6 +96,7 @@ resolves non-blacklisted addresses using a local
 in this repo.
 
 ## TODO
+
 - [ ] Move to a separate WiFi network for IoT devices and implement VLANs
 - [ ] Update this README to cover single points of failure (DNS)
 - [ ] Update this README with better instructions / notes
