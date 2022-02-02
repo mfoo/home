@@ -23,7 +23,7 @@ The main components powering my house are:
 - [UniFi Switch 8 150W](https://www.ui.com/unifi-switching/unifi-switch-8-150w/)
   as a secondary switch providing PoE and additional ports
 - [UniFi Access Point WiFi 6 Pro](https://store.ui.com/products/unifi-ap6-professional)
-  as a WiFi 6 AP using PoW from the Switch 8 150W
+  as a WiFi 6 AP using PoE from the Switch 8 150W
 - [UniFi Flex Mini](https://store.ui.com/collections/unifi-network-switching/products/usw-flex-mini)
   as an additional switch to provide some extra ports in a cute form factor
 - [Synology DS1621+ NAS](https://www.synology.com/en-us/products/DS1621+)
