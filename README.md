@@ -1,7 +1,7 @@
 # Martin's Home Automation Project
 
-![Ansible Lint](https://github.com/mfoo/home/actions/workflows/ansible-lint.yml/badge.svg)
-![Markdown Lint](https://github.com/mfoo/home/actions/workflows/markdown-lint.yml/badge.svg)
+![Ansible Lint](https://github.com/mfoo/home/actions/workflows/ansible-lint.yaml/badge.svg)
+![Markdown Lint](https://github.com/mfoo/home/actions/workflows/markdown-lint.yaml/badge.svg)
 
 This repository documents my Kubernetes-on-Raspberry-Pi-powered smart home. It
 contains my [Home Assistant](https://www.home-assistant.io/) configuration and
