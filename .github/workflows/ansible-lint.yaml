@@ -8,7 +8,7 @@ jobs:
     # Important: This sets up your GITHUB_WORKSPACE environment variable
     - uses: actions/checkout@v3
     - name: Lint Ansible Playbook
-      uses: ansible/ansible-lint-action@master
+      uses: ansible/ansible-lint-action@main
       with:
         targets: "ansible/**/*.yml"
         override-deps: |
