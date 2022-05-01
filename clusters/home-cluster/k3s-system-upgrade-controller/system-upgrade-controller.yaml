@@ -29,7 +29,7 @@ data:
   SYSTEM_UPGRADE_JOB_ACTIVE_DEADLINE_SECONDS: "900"
   SYSTEM_UPGRADE_JOB_BACKOFF_LIMIT: "99"
   SYSTEM_UPGRADE_JOB_IMAGE_PULL_POLICY: Always
-  SYSTEM_UPGRADE_JOB_KUBECTL_IMAGE: rancher/kubectl:v1.20.2
+  SYSTEM_UPGRADE_JOB_KUBECTL_IMAGE: rancher/kubectl:v1.21.9
   SYSTEM_UPGRADE_JOB_PRIVILEGED: "true"
   SYSTEM_UPGRADE_JOB_TTL_SECONDS_AFTER_FINISH: "900"
   SYSTEM_UPGRADE_PLAN_POLLING_INTERVAL: 15m
@@ -58,9 +58,7 @@ spec:
             nodeSelectorTerms:
             - matchExpressions:
               - key: node-role.kubernetes.io/master
-                operator: In
-                values:
-                - "true"
+                operator: Exists
       containers:
       - env:
         - name: SYSTEM_UPGRADE_CONTROLLER_NAME
@@ -74,12 +72,16 @@ spec:
         envFrom:
         - configMapRef:
             name: default-controller-env
-        image: rancher/system-upgrade-controller:v0.8.1
+        image: rancher/system-upgrade-controller:v0.9.1
         imagePullPolicy: IfNotPresent
         name: system-upgrade-controller
         volumeMounts:
         - mountPath: /etc/ssl
           name: etc-ssl
+        - mountPath: /etc/pki
+          name: etc-pki
+        - mountPath: /etc/ca-certificates
+          name: etc-ca-certificates
         - mountPath: /tmp
           name: tmp
       serviceAccountName: system-upgrade
@@ -89,10 +91,27 @@ spec:
       - effect: NoSchedule
         key: node-role.kubernetes.io/master
         operator: Exists
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/controlplane
+        operator: Exists
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/control-plane
+        operator: Exists
+      - effect: NoExecute
+        key: node-role.kubernetes.io/etcd
+        operator: Exists
       volumes:
       - hostPath:
           path: /etc/ssl
           type: Directory
         name: etc-ssl
+      - hostPath:
+          path: /etc/pki
+          type: DirectoryOrCreate
+        name: etc-pki
+      - hostPath:
+          path: /etc/ca-certificates
+          type: DirectoryOrCreate
+        name: etc-ca-certificates
       - emptyDir: {}
         name: tmp
