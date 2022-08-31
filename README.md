@@ -1,12 +1,20 @@
-# Martin's Home Automation Project
+
+# Martin's Smart Home
 
 ![Ansible Lint](https://github.com/mfoo/home/actions/workflows/ansible-lint.yaml/badge.svg)
 ![Markdown Lint](https://github.com/mfoo/home/actions/workflows/markdown-lint.yaml/badge.svg)
 
-This repository documents my Kubernetes-on-Raspberry-Pi-powered smart home. It
-contains my [Home Assistant](https://www.home-assistant.io/) configuration and
-automations as well as the GitOps configuration for my small Kubernetes cluster
-and some Ansible configuration to control the Raspberry Pis.
+This repository documents my smart home. The key components are:
+
+- A small Kubernetes cluster of Raspberry Pis
+- Ubiquiti Unifi networking equipment
+- [Pi-Hole](https://pi-hole.net/) as a network ad blocker using [Unbound](https://www.nlnetlabs.nl/projects/unbound/about/) as a recursive DNS resolver
+- A Synology NAS for photo storage and backups
+- A series of IoT sensors around the house 
+- [Philips Hue](https://www.philips-hue.com/en-gb) smart lighting
+- [Home Assistant](https://www.home-assistant.io/) for automation
+
+This repository also acts as the [GitOps](https://www.weave.works/technologies/gitops/) configuration repository for my Pi Kubernetes cluster and hosts some Ansible configuration to control the Raspberry Pis.
 
 The Pi cluster runs on [k3s](https://k3s.io/) and uses [Flux
 CD](https://fluxcd.io/) pointing at this repository to keep the cluster
@@ -19,9 +27,10 @@ The main components powering my house are:
 
 - [UniFi Dream
   Machine](https://store.ui.com/collections/unifi-network-routing-switching/products/unifi-dream-machine)
-  as a switch and router with the access point disabled
+  as a switch and router
 - [UniFi Switch 8 150W](https://www.ui.com/unifi-switching/unifi-switch-8-150w/)
   as a secondary switch providing PoE and additional ports
+- [UniFi Switch Lite 16 PoE](https://eu.store.ui.com/collections/unifi-network-routing-switching/products/usw-lite-16-poe)
 - [UniFi Access Point WiFi 6 Pro](https://store.ui.com/products/unifi-ap6-professional)
   as a WiFi 6 AP using PoE from the Switch 8 150W
 - [UniFi Flex Mini](https://store.ui.com/collections/unifi-network-switching/products/usw-flex-mini)
@@ -134,3 +143,4 @@ k3sup join --server-host k8s-master --host k8s-worker-3 --user ubuntu
 
 - Watch as the node is joined and the Rancher `system-upgrade-controller`
   cordons the node and upgrades it to the correct version and uncordons it
+
