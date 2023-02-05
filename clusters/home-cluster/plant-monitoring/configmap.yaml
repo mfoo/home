@@ -38,9 +38,7 @@ data:
 
     # The hostname or IP address of the MQTT broker to connect to (Default: localhost)
     # Also read from the MQTT_HOSTNAME environment variable
-    #hostname = mosquitto.mosquitto.svc.cluster.local
-    hostname = 192.168.1.4
-    #hostname = localhost
+    hostname = mosquitto.mosquitto.svc.cluster.local
 
     # The TCP port the MQTT broker is listening on (Default: 1883)
     # Also read from the MQTT_PORT environment variable
