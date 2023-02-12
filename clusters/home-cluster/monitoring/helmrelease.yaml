@@ -32,8 +32,3 @@ spec:
               resources:
                 requests:
                   storage: 20Gi
-#     alertmanager:
-#       alertmanagerSpec:
-#         alertmanagerConfigSelector:
-#           matchLabels:
-#             alertmanagerConfig: custom
