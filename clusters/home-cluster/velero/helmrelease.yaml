@@ -17,6 +17,12 @@ spec:
         namespace: flux-system
       interval: 10m
   values:
+    configuration:
+      provider: aws
+      backupStorageLocation:
+        bucket: home-kubernetes-cluster-backup
+    credentials:
+      existingSecret: velero-credentials
     upgradeCRDs: false
     initContainers:
     - name: velero-plugin-for-aws
