@@ -23,7 +23,7 @@ spec:
       volumeMounts:
       - mountPath: /target
         name: plugins
-  kubectl:
-    image:
-      repository: docker.io/rancher/kubectl
-      tag: v1.23.7
+    kubectl:
+      image:
+        repository: docker.io/rancher/kubectl
+        tag: v1.23.7
