@@ -11,4 +11,4 @@ jobs:
     - name: Check out code
       uses: actions/checkout@main
     - name: Run mdl
-      uses: actionshub/markdownlint@main
+      uses: actionshub/markdownlint@3.0.2
