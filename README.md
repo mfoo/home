@@ -20,7 +20,7 @@ The main components powering my house are:
 - [UniFi Dream
   Machine](https://store.ui.com/collections/unifi-network-routing-switching/products/unifi-dream-machine)
   as a switch and router with the access point disabled
-- [UniFi Switch 8 150W](https://www.ui.com/unifi-switching/unifi-switch-8-150w/)
+- [UniFi Switch Lite 16 PoE](https://eu.store.ui.com/collections/unifi-network-routing-switching/products/usw-lite-16-poe)
   as a secondary switch providing PoE and additional ports
 - [UniFi Access Point WiFi 6 Pro](https://store.ui.com/products/unifi-ap6-professional)
   as a WiFi 6 AP using PoE from the Switch 8 150W
