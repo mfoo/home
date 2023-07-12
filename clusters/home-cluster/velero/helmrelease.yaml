@@ -18,9 +18,8 @@ spec:
       interval: 10m
   values:
     configuration:
-      provider: aws
       backupStorageLocation:
-        - name: aws
+        - provider: aws
           bucket: home-kubernetes-cluster-backup
     credentials:
       existingSecret: velero-credentials
