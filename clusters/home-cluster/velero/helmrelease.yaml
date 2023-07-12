@@ -21,6 +21,8 @@ spec:
       backupStorageLocation:
         - provider: aws
           bucket: home-kubernetes-cluster-backup
+      volumeStorageLocation:
+        - provider: aws
     credentials:
       existingSecret: velero-credentials
     schedules:
