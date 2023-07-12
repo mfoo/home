@@ -18,8 +18,9 @@ spec:
       interval: 10m
   values:
     configuration:
+      provider: aws
       backupStorageLocation:
-        - provider: aws
+        - name: aws
           bucket: home-kubernetes-cluster-backup
     credentials:
       existingSecret: velero-credentials
@@ -29,7 +30,8 @@ spec:
         schedule: "0 0 * * 1" # Monday at 00:00
         template:
             ttl: "336h" # 14 days
-    upgradeCRDs: false
+            storageLocation: aws
+    upgradeCRDs: true
     initContainers:
     - name: velero-plugin-for-aws
       image: velero/velero-plugin-for-aws:v1.6.1
