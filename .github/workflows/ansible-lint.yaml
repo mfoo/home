@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     # Important: This sets up your GITHUB_WORKSPACE environment variable
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Lint Ansible Playbook
       uses: ansible-community/ansible-lint-action@v6.17.0
       with:
