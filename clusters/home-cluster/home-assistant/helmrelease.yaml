@@ -8,18 +8,20 @@ spec:
   interval: 1m
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-at-home.com/charts/
+      # renovate: registryUrl=https://k8s-home-lab.github.io/helm-charts/
       chart: home-assistant
-      version: 13.4.2
+      version: 14.0.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: k8s-home-lab
         namespace: flux-system
       interval: 10m
   values:
     ingress:
       main:
         enabled: true
+        annotations:
+          nginx.org/websocket-services: home-assistant
         hosts:
         - host: home-assistant.home
           paths:
