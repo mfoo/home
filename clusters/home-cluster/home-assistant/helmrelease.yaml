@@ -7,6 +7,7 @@ metadata:
 spec:
   interval: 1m
   chart:
+    appVersion: 2024.12
     spec:
       # renovate: registryUrl=https://k8s-home-lab.github.io/helm-charts/
       chart: home-assistant
