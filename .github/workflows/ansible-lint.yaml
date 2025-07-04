@@ -1,13 +1,21 @@
-# See https://github.com/marketplace/actions/ansible-lint
 name: Ansible Lint
 on: [push, pull_request]
 jobs:
-  build:
+  ansible-lint:
     runs-on: ubuntu-latest
     steps:
-    # Important: This sets up your GITHUB_WORKSPACE environment variable
     - uses: actions/checkout@v4
-    - name: Lint Ansible Playbook
-      uses: ansible-community/ansible-lint-action@v6.17.0
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
       with:
-        path: "ansible/site.yml"
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install ansible-lint ansible
+
+    - name: Run ansible-lint
+      run: |
+        ansible-lint ansible/site.yml
