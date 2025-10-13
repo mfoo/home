@@ -4,5 +4,7 @@
   ],
   "flux": {
     "fileMatch": ["clusters/home-cluster/*/.+\\.yaml$"]
-  }
+  },
+  "timezone": "UTC",
+  "schedule": ["before 04:00 on the first day of the month"]
 }
