@@ -1,0 +1,36 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ollama
+  namespace: ollama
+spec:
+  interval: 1m
+  chart:
+    spec:
+      chart: ollama
+      version: 1.37.0
+      sourceRef:
+        kind: HelmRepository
+        name: otwld
+        namespace: flux-system
+      interval: 60m
+  values:
+    gpu:
+      enabled: false
+    resources:
+      requests:
+        memory: 6Gi
+      limits:
+        memory: 6Gi
+    ingress:
+      enabled: true
+      hosts:
+      - host: ollama.home
+        paths:
+        - path: /
+          pathType: Prefix
+    persistentVolume:
+      enabled: true
+      storageClass: nfs-client
+      size: 30Gi
