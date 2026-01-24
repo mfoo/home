@@ -8,38 +8,25 @@ spec:
   interval: 1m
   chart:
     spec:
-      # renovate: registryUrl=https://k8s-home-lab.github.io/helm-charts/
+      # renovate: registryUrl=https://pajikos.github.io/home-assistant-helm-chart/
       chart: home-assistant
-      version: 14.0.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-home-lab
+        name: pajikos
         namespace: flux-system
       interval: 10m
   values:
-    image:
-      tag: "2025.10"
     ingress:
-      main:
-        enabled: true
-        annotations:
-          nginx.org/websocket-services: home-assistant
-        hosts:
-        - host: home-assistant.home
-          paths:
-          - path: "/"
-    additionalVolumes:
-      - name: config-volume
-        configMap:
-          name: home-assistant-config
-    additionalVolumeMounts:
-      - name: config-volume
-        mountPath: /config/configuration.yaml
-        subPath: configuration.yaml
+      enabled: true
+      annotations:
+        nginx.org/websocket-services: home-assistant
+      hosts:
+      - host: home-assistant.home
+        paths:
+        - path: "/"
+          pathType: ImplementationSpecific
     persistence:
-      config:
-        enabled: true
-        storageClass: nfs-client
-    prometheus:
-      serviceMonitor:
-        enabled: true
+      enabled: true
+      storageClass: nfs-client
+    serviceMonitor:
+      enabled: true
