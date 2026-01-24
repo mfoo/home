@@ -1,0 +1,42 @@
+name: Kubernetes Manifest Validation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "clusters/**"
+      - "scripts/**"
+  pull_request:
+    paths:
+      - "clusters/**"
+      - "scripts/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python Dependencies
+        run: pip install PyYAML
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.14.0
+
+      - name: Setup kubeconform
+        run: |
+          wget https://github.com/yannh/kubeconform/releases/download/v0.6.4/kubeconform-linux-amd64.tar.gz
+          tar xf kubeconform-linux-amd64.tar.gz
+          sudo mv kubeconform /usr/local/bin/
+
+      - name: Validate Helm Releases
+        run: python scripts/validate_releases.py
