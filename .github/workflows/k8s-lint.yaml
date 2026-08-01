@@ -30,7 +30,7 @@ jobs:
       - name: Setup Helm
         uses: azure/setup-helm@v5
         with:
-          version: v3.21.2
+          version: v3.21.3
 
       - name: Setup kubeconform
         run: |
