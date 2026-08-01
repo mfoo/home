@@ -25,7 +25,7 @@ jobs:
           python-version: '3.14'
 
       - name: Install Python Dependencies
-        run: pip install PyYAML
+        run: pip install PyYAML==6.0.2 --only-binary :all:
 
       - name: Setup Helm
         uses: azure/setup-helm@v5
@@ -34,7 +34,7 @@ jobs:
 
       - name: Setup kubeconform
         run: |
-          wget https://github.com/yannh/kubeconform/releases/download/v0.6.4/kubeconform-linux-amd64.tar.gz
+          wget --max-redirect=0 https://github.com/yannh/kubeconform/releases/download/v0.6.4/kubeconform-linux-amd64.tar.gz
           tar xf kubeconform-linux-amd64.tar.gz
           sudo mv kubeconform /usr/local/bin/
 
