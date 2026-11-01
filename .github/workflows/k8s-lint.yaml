@@ -5,12 +5,18 @@ on:
     branches:
       - main
     paths:
+      - ".github/workflows/k8s-lint.yaml"
       - "clusters/**"
       - "scripts/**"
+      - "pyproject.toml"
+      - "uv.lock"
   pull_request:
     paths:
+      - ".github/workflows/k8s-lint.yaml"
       - "clusters/**"
       - "scripts/**"
+      - "pyproject.toml"
+      - "uv.lock"
 
 jobs:
   validate:
@@ -19,13 +25,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Setup Python
-        uses: actions/setup-python@v7
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v10.3.3
         with:
+          enable-cache: true
           python-version: '3.14'
-
-      - name: Install Python Dependencies
-        run: "pip install PyYAML==6.0.2 --only-binary :all:"
 
       - name: Setup Helm
         uses: azure/setup-helm@v5
@@ -39,4 +43,4 @@ jobs:
           sudo mv kubeconform /usr/local/bin/
 
       - name: Validate Helm Releases
-        run: python scripts/validate_releases.py
+        run: uv run scripts/validate_releases.py
